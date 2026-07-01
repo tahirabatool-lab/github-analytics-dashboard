@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevStats — GitHub Analytics Dashboard</title>
+  <meta name="description" content="DevStats is a simple dashboard for tracking GitHub profile stats: repositories, stars, languages, and activity." />
+
+  <!-- Google Fonts: just Poppins for everything -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-name">DevStats</span>
+      </div>
+
+      <nav class="main-nav" aria-label="Primary navigation">
+        <ul>
+          <li><a href="#" class="nav-link is-active">Overview</a></li>
+          <li><a href="#" class="nav-link">Repositories</a></li>
+          <li><a href="#" class="nav-link">Activity</a></li>
+          <li><a href="#" class="nav-link">Settings</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn-toggle" id="theme-toggle">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M12 2.5V4.5M12 19.5V21.5M4.5 12H2.5M21.5 12H19.5M5.6 5.6L4.2 4.2M19.8 19.8L18.4 18.4M18.4 5.6L19.8 4.2M4.2 19.8L5.6 18.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.5 14.5C19.3 15.1 17.9 15.4 16.5 15.2C12.9 14.8 10.1 11.9 9.7 8.3C9.5 6.9 9.8 5.5 10.4 4.3C6.9 5.2 4.3 8.4 4.3 12.2C4.3 16.7 7.9 20.3 12.4 20.3C16.1 20.3 19.3 17.8 20.5 14.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <img class="avatar-chip" src="https://i.pravatar.cc/64?img=12" alt="User avatar" width="32" height="32" />
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <h1 class="search-heading">Analyze any GitHub profile</h1>
+      <p class="search-subheading">Enter a username to see repository, language, and activity info.</p>
+
+      <form class="search-form" onsubmit="return false;">
+        <label for="github-search" class="sr-only">GitHub username</label>
+        <input
+          type="text"
+          id="github-search"
+          name="github-search"
+          class="search-input"
+          placeholder="e.g. hiteshchoudhary"
+        />
+        <button type="submit" class="btn btn-primary">Analyze Profile</button>
+      </form>
+    </section>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+
+      <!-- Profile Card -->
+      <aside class="profile-card">
+        <img
+          class="profile-avatar"
+          src="https://i.pravatar.cc/160?img=12"
+          alt="Portrait of Hitesh Choudhary"
+          width="96"
+          height="96"
+        />
+
+        <h2 class="profile-name">Hitesh Choudhary</h2>
+        <p class="profile-username">@hiteshchoudhary</p>
+
+        <p class="profile-bio">
+          Building developer tools &amp; teaching code. Full-time on open source and education.
+        </p>
+
+        <ul class="profile-follow-stats">
+          <li>
+            <span class="follow-count">32.5K</span>
+            <span class="follow-label">Followers</span>
+          </li>
+          <li>
+            <span class="follow-count">184</span>
+            <span class="follow-label">Following</span>
+          </li>
+          <li>
+            <span class="follow-count">154</span>
+            <span class="follow-label">Repos</span>
+          </li>
+        </ul>
+
+        <ul class="profile-meta">
+          <li>Dev Community</li>
+          <li>India</li>
+          <li><a href="#">example.dev</a></li>
+        </ul>
+
+        <button type="button" class="btn btn-secondary">View on GitHub</button>
+      </aside>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+
+        <!-- Statistics -->
+        <section class="stats-section">
+          <h2 class="section-title">Statistics</h2>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <p class="stat-title">Public Repositories</p>
+              <p class="stat-number">154</p>
+            </div>
+
+            <div class="stat-card">
+              <p class="stat-title">Followers</p>
+              <p class="stat-number">32.5K</p>
+            </div>
+
+            <div class="stat-card">
+              <p class="stat-title">Following</p>
+              <p class="stat-number">184</p>
+            </div>
+
+            <div class="stat-card">
+              <p class="stat-title">Total Stars</p>
+              <p class="stat-number">1.4K</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Languages -->
+        <section class="languages-section">
+          <div class="card">
+            <h2 class="card-title">Top Languages</h2>
+            <ul class="badge-list">
+              <li><span class="badge badge-js">JavaScript</span></li>
+              <li><span class="badge badge-py">Python</span></li>
+              <li><span class="badge badge-ts">TypeScript</span></li>
+              <li><span class="badge badge-html">HTML</span></li>
+              <li><span class="badge badge-css">CSS</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Repository List -->
+        <section class="repos-section">
+          <h2 class="section-title">Top Repositories</h2>
+
+          <div class="repo-list">
+
+            <div class="repo-card">
+              <div class="repo-card-head">
+                <h3 class="repo-name">chai-aur-code</h3>
+                <button type="button" class="btn btn-outline">View Repository</button>
+              </div>
+              <p class="repo-description">A curated collection of backend learning notes and hands-on exercises in Node.js.</p>
+              <div class="repo-meta">
+                <span>JavaScript</span>
+                <span>★ 3.2K</span>
+                <span>⑂ 612</span>
+                <span>Updated 2 days ago</span>
+              </div>
+            </div>
+
+            <div class="repo-card">
+              <div class="repo-card-head">
+                <h3 class="repo-name">react-hook-forms</h3>
+                <button type="button" class="btn btn-outline">View Repository</button>
+              </div>
+              <p class="repo-description">Reusable form utilities and validation patterns for modern React applications.</p>
+              <div class="repo-meta">
+                <span>TypeScript</span>
+                <span>★ 2.7K</span>
+                <span>⑂ 401</span>
+                <span>Updated 5 days ago</span>
+              </div>
+            </div>
+
+            <div class="repo-card">
+              <div class="repo-card-head">
+                <h3 class="repo-name">python-automation-scripts</h3>
+                <button type="button" class="btn btn-outline">View Repository</button>
+              </div>
+              <p class="repo-description">Small automation scripts for everyday developer workflows and system tasks.</p>
+              <div class="repo-meta">
+                <span>Python</span>
+                <span>★ 1.9K</span>
+                <span>⑂ 288</span>
+                <span>Updated 1 week ago</span>
+              </div>
+            </div>
+
+            <div class="repo-card">
+              <div class="repo-card-head">
+                <h3 class="repo-name">devstats-ui-kit</h3>
+                <button type="button" class="btn btn-outline">View Repository</button>
+              </div>
+              <p class="repo-description">A component library used across internal dashboard projects.</p>
+              <div class="repo-meta">
+                <span>CSS</span>
+                <span>★ 1.1K</span>
+                <span>⑂ 154</span>
+                <span>Updated 2 weeks ago</span>
+              </div>
+            </div>
+
+            <div class="repo-card">
+              <div class="repo-card-head">
+                <h3 class="repo-name">learn-html-css-fast</h3>
+                <button type="button" class="btn btn-outline">View Repository</button>
+              </div>
+              <p class="repo-description">Beginner-friendly lessons covering semantic HTML and modern CSS layout techniques.</p>
+              <div class="repo-meta">
+                <span>HTML</span>
+                <span>★ 980</span>
+                <span>⑂ 121</span>
+                <span>Updated 3 weeks ago</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Recent Activity (simple text version, no heatmap) -->
+        <section class="activity-section">
+          <div class="card">
+            <h2 class="card-title">Recent Activity</h2>
+            <ul class="activity-list">
+              <li>Pushed 4 commits to <strong>chai-aur-code</strong> — 2 days ago</li>
+              <li>Opened a pull request in <strong>react-hook-forms</strong> — 5 days ago</li>
+              <li>Starred <strong>devstats-ui-kit</strong> — 1 week ago</li>
+              <li>Created a new repository <strong>learn-html-css-fast</strong> — 3 weeks ago</li>
+            </ul>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Built with HTML, CSS &amp; JavaScript</p>
+      <p class="footer-secondary">DevStats — a static preview. No data is fetched yet.</p>
+    </div>
+  </footer>
+
+  <script src="js/ui.js"></script>
+</body>
+</html>

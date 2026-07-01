@@ -1,0 +1,581 @@
+/* ==========================================================================
+   DevStats — GitHub Analytics Dashboard
+   ========================================================================== */
+   * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  color: #222222;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Dark theme: just swap colors when body has the "dark" class */
+body.dark {
+  background-color: #14161f;
+  color: #eaeaea;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.site-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px 0;
+}
+
+body.dark .site-header {
+  background-color: #1c1e29;
+  border-bottom: 1px solid #2b2d3a;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666666;
+}
+
+body.dark .nav-link {
+  color: #aaaaaa;
+}
+
+.nav-link.is-active {
+  color: #4f46e5;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #cccccc;
+  background: #ffffff;
+  color: #666666;
+}
+
+body.dark .btn-toggle {
+  background: #1c1e29;
+  border-color: #3a3c4a;
+  color: #eaeaea;
+}
+
+/* Light mode: show sun (click to go dark). Dark mode: show moon (click to go light). */
+.btn-toggle .icon-moon {
+  display: none;
+}
+
+body.dark .btn-toggle .icon-sun {
+  display: none;
+}
+
+body.dark .btn-toggle .icon-moon {
+  display: block;
+}
+
+.avatar-chip {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* --------------------------------------------------------------------------
+   Search Section
+   -------------------------------------------------------------------------- */
+.search-section {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 48px 0 32px;
+}
+
+.search-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.search-subheading {
+  color: #666666;
+  margin-bottom: 24px;
+}
+
+body.dark .search-subheading {
+  color: #aaaaaa;
+}
+
+.search-form {
+  display: flex;
+  gap: 8px;
+}
+
+.search-input {
+  flex: 1;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  font-size: 0.9rem;
+  background: #ffffff;
+  color: #222222;
+}
+
+body.dark .search-input {
+  background: #1c1e29;
+  border-color: #3a3c4a;
+  color: #eaeaea;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  height: 46px;
+  padding: 0 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  width: 100%;
+  margin-top: 16px;
+  background-color: #f0f0f0;
+  color: #222222;
+  border-color: #cccccc;
+}
+
+body.dark .btn-secondary {
+  background-color: #2b2d3a;
+  color: #eaeaea;
+  border-color: #3a3c4a;
+}
+
+.btn-outline {
+  height: 36px;
+  padding: 0 14px;
+  background: transparent;
+  border-color: #cccccc;
+  color: #666666;
+  font-size: 0.8rem;
+}
+
+body.dark .btn-outline {
+  border-color: #3a3c4a;
+  color: #aaaaaa;
+}
+
+/* --------------------------------------------------------------------------
+   Dashboard Layout
+   -------------------------------------------------------------------------- */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  align-items: start;
+  gap: 24px;
+  padding-bottom: 48px;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* --------------------------------------------------------------------------
+   Card Base
+   -------------------------------------------------------------------------- */
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+body.dark .card {
+  background-color: #1c1e29;
+  border-color: #2b2d3a;
+}
+
+.card-title,
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Profile Card
+   -------------------------------------------------------------------------- */
+.profile-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: sticky;
+  top: 20px;
+}
+
+body.dark .profile-card {
+  background-color: #1c1e29;
+  border-color: #2b2d3a;
+}
+
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.profile-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.profile-username {
+  font-size: 0.82rem;
+  color: #4f46e5;
+  margin-top: 2px;
+}
+
+.profile-bio {
+  color: #666666;
+  font-size: 0.85rem;
+  margin-top: 12px;
+}
+
+body.dark .profile-bio {
+  color: #aaaaaa;
+}
+
+.profile-follow-stats {
+  display: flex;
+  width: 100%;
+  margin-top: 16px;
+  padding: 16px 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+body.dark .profile-follow-stats {
+  border-color: #2b2d3a;
+}
+
+.profile-follow-stats li {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.follow-count {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.follow-label {
+  font-size: 0.7rem;
+  color: #999999;
+}
+
+.profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+  text-align: left;
+  font-size: 0.82rem;
+  color: #666666;
+}
+
+body.dark .profile-meta {
+  color: #aaaaaa;
+}
+
+/* --------------------------------------------------------------------------
+   Statistics Section
+   -------------------------------------------------------------------------- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+body.dark .stat-card {
+  background-color: #1c1e29;
+  border-color: #2b2d3a;
+}
+
+.stat-title {
+  font-size: 0.78rem;
+  color: #666666;
+  margin-bottom: 4px;
+}
+
+body.dark .stat-title {
+  color: #aaaaaa;
+}
+
+.stat-number {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Languages Section
+   -------------------------------------------------------------------------- */
+.badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  border: 1px solid #cccccc;
+  color: #666666;
+}
+
+body.dark .badge {
+  border-color: #3a3c4a;
+  color: #aaaaaa;
+}
+
+.badge-js { border-left: 4px solid #f1c40f; }
+.badge-py { border-left: 4px solid #4b8bbe; }
+.badge-ts { border-left: 4px solid #3178c6; }
+.badge-html { border-left: 4px solid #e34c26; }
+.badge-css { border-left: 4px solid #563d7c; }
+
+/* --------------------------------------------------------------------------
+   Repository List
+   -------------------------------------------------------------------------- */
+.repo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.repo-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+body.dark .repo-card {
+  background-color: #1c1e29;
+  border-color: #2b2d3a;
+}
+
+.repo-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.repo-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+.repo-description {
+  color: #666666;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+body.dark .repo-description {
+  color: #aaaaaa;
+}
+
+.repo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.78rem;
+  color: #999999;
+}
+
+/* --------------------------------------------------------------------------
+   Recent Activity (simple list, no heatmap)
+   -------------------------------------------------------------------------- */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #444444;
+}
+
+body.dark .activity-list {
+  color: #cccccc;
+}
+
+.activity-list li {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+body.dark .activity-list li {
+  border-bottom: 1px solid #2b2d3a;
+}
+
+.activity-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid #e0e0e0;
+  padding: 20px 0;
+}
+
+body.dark .site-footer {
+  border-top: 1px solid #2b2d3a;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  color: #999999;
+  font-size: 0.8rem;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card {
+    position: static;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .search-form {
+    flex-direction: column;
+  }
+
+  .repo-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
