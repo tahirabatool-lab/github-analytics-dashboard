@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  
+
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
@@ -22,7 +22,7 @@
         <span class="brand-name">DevStats</span>
       </div>
 
-      <nav class="main-nav" aria-label="Primary navigation">
+      <nav class="main-nav" id="main-nav" aria-label="Primary navigation">
         <ul>
           <li><a href="#" class="nav-link is-active">Overview</a></li>
           <li><a href="#" class="nav-link">Repositories</a></li>
@@ -42,6 +42,11 @@
           </svg>
         </button>
         <img class="avatar-chip" src="https://i.pravatar.cc/64?img=12" alt="User avatar" width="32" height="32" />
+        <button type="button" class="menu-toggle" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </header>
@@ -249,7 +254,7 @@
       </div>
     </div>
   </main>
-  
+
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-inner">

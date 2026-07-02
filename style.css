@@ -1,7 +1,9 @@
 /* ==========================================================================
    DevStats — GitHub Analytics Dashboard
+   Simple beginner-friendly stylesheet. Plain colors, no CSS variables.
    ========================================================================== */
-   * {
+
+* {
   box-sizing: border-box;
 }
 
@@ -70,6 +72,7 @@ input {
    Header
    -------------------------------------------------------------------------- */
 .site-header {
+  position: relative;
   background-color: #ffffff;
   border-bottom: 1px solid #e0e0e0;
   padding: 16px 0;
@@ -82,6 +85,7 @@ body.dark .site-header {
 
 .header-inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
@@ -115,6 +119,36 @@ body.dark .nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #cccccc;
+  background: #ffffff;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 0 auto;
+  background: #222222;
+}
+
+body.dark .menu-toggle {
+  background: #1c1e29;
+  border-color: #3a3c4a;
+}
+
+body.dark .menu-toggle span {
+  background: #eaeaea;
 }
 
 .btn-toggle {
@@ -559,8 +593,45 @@ body.dark .site-footer {
     position: static;
   }
 
+  .menu-toggle {
+    display: flex;
+  }
+
   .main-nav {
     display: none;
+    width: 100%;
+    order: 10;
+    background-color: #f7f7f9;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 16px;
+    padding: 8px 4px 0;
+  }
+
+  body.dark .main-nav {
+    background-color: #14161f;
+    border-color: #2b2d3a;
+  }
+
+  .main-nav.open {
+    display: block;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .main-nav li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  body.dark .main-nav li {
+    border-color: #2b2d3a;
+  }
+
+  .main-nav li:last-child {
+    border-bottom: none;
   }
 
   .stats-grid {
