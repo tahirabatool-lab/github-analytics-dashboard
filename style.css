@@ -218,6 +218,13 @@ body.dark .search-subheading {
   gap: 8px;
 }
 
+.search-status {
+  margin-top: 12px;
+  min-height: 20px;
+  color: #d64545;
+  font-size: 0.85rem;
+}
+
 .search-input {
   flex: 1;
   height: 46px;
