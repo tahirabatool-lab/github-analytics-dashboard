@@ -27,6 +27,11 @@ const profileLocation = document.getElementById("profile-location");
 const profileBlog = document.getElementById("profile-blog");
 const profileGithubLink = document.getElementById("profile-github-link");
 const headerAvatar = document.getElementById("header-avatar");
+const userMenu = document.getElementById("user-menu");
+const userMenuDropdown = document.getElementById("user-menu-dropdown");
+const menuViewProfile = document.getElementById("menu-view-profile");
+const menuCopyLink = document.getElementById("menu-copy-link");
+const menuLogout = document.getElementById("menu-logout");
 
 const followCountFollowers = document.getElementById("follow-count-followers");
 const followCountFollowing = document.getElementById("follow-count-following");
@@ -76,6 +81,13 @@ async function fetchGitHubUser(username) {
    RENDER DATA
    Small, focused functions — each one updates one part of the page.
    -------------------------------------------------------------------- */
+/* --------------------------------------------------------------------
+   MODULE-LEVEL STATE
+   Keeps track of the currently loaded profile so the dropdown menu
+   actions (view / copy link) always point at the right user.
+   -------------------------------------------------------------------- */
+let currentProfileUrl = null;
+
 function renderProfile(user) {
   profileAvatar.src = user.avatarUrl;
   profileAvatar.alt = `Portrait of ${user.name}`;
@@ -93,6 +105,7 @@ function renderProfile(user) {
     : "No website listed";
 
   profileGithubLink.onclick = () => window.open(user.profileUrl, "_blank");
+  currentProfileUrl = user.profileUrl;
 
   followCountFollowers.textContent = formatNumber(user.followers);
   followCountFollowing.textContent = formatNumber(user.following);
@@ -200,6 +213,7 @@ function setLoadingState(isLoading) {
 }
 
 function showError(message) {
+  searchStatus.style.color = "#d64545";
   searchStatus.textContent = message;
 }
 
@@ -240,3 +254,56 @@ async function handleSearch(event) {
 }
 
 searchForm.addEventListener("submit", handleSearch);
+
+/* --------------------------------------------------------------------
+   USER MENU DROPDOWN
+   Click the avatar to open/close a small menu with profile actions.
+   -------------------------------------------------------------------- */
+headerAvatar.addEventListener("click", (event) => {
+  event.stopPropagation(); // don't let this click immediately close itself below
+  userMenuDropdown.classList.toggle("open");
+});
+
+// Clicking anywhere outside the menu closes it
+document.addEventListener("click", (event) => {
+  if (!userMenu.contains(event.target)) {
+    userMenuDropdown.classList.remove("open");
+  }
+});
+
+menuViewProfile.addEventListener("click", (event) => {
+  event.preventDefault();
+  userMenuDropdown.classList.remove("open");
+
+  if (!currentProfileUrl) {
+    showError("Search a GitHub username first.");
+    return;
+  }
+  window.open(currentProfileUrl, "_blank");
+});
+
+menuCopyLink.addEventListener("click", async (event) => {
+  event.preventDefault();
+  userMenuDropdown.classList.remove("open");
+
+  if (!currentProfileUrl) {
+    showError("Search a GitHub username first.");
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(currentProfileUrl);
+    searchStatus.style.color = "#2f9e44";
+    searchStatus.textContent = "Profile link copied to clipboard.";
+  } catch (error) {
+    showError("Could not copy the link. Please copy it manually.");
+  }
+});
+
+menuLogout.addEventListener("click", (event) => {
+  event.preventDefault();
+  userMenuDropdown.classList.remove("open");
+  // No real authentication in this project — "logout" just resets
+  // the dashboard back to its default, pre-search state.
+  location.reload();
+});
