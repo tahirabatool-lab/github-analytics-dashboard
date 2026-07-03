@@ -11,7 +11,7 @@ It fetches real-time data from the GitHub REST API and visualizes user profiles,
 ## 🌐 Live Demo
 
 👉 **Vercel Deployment**  
-https://github-analytics-dashboard-24wcsyl9i-tahira-s-projects.vercel.app/
+https://github-analytics-dashboard-xi.vercel.app?_vercel_share=4uqAA9sTduOuowzDhYlAx7pwYKFkFmHj
 
 Try searching any GitHub username like:
 - `torvalds`
