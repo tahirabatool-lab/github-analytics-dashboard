@@ -32,7 +32,7 @@
       </nav>
 
       <div class="header-actions">
-        <button type="button" class="btn-toggle" id="theme-toggle">
+        <button type="button" class="btn-toggle" id="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false">
           <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/>
             <path d="M12 2.5V4.5M12 19.5V21.5M4.5 12H2.5M21.5 12H19.5M5.6 5.6L4.2 4.2M19.8 19.8L18.4 18.4M18.4 5.6L19.8 4.2M4.2 19.8L5.6 18.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -42,14 +42,25 @@
           </svg>
         </button>
         <div class="user-menu" id="user-menu">
-          <img class="avatar-chip" id="header-avatar" src="https://i.pravatar.cc/64?img=12" alt="User avatar" width="32" height="32" />
-          <ul class="user-menu-dropdown" id="user-menu-dropdown">
-            <li><a href="#" id="menu-view-profile">View GitHub Profile</a></li>
-            <li><a href="#" id="menu-copy-link">Copy Profile Link</a></li>
-            <li><a href="#" id="menu-logout">Logout</a></li>
+          <img
+            class="avatar-chip"
+            id="header-avatar"
+            src="https://i.pravatar.cc/64?img=12"
+            alt="View profile options for the currently searched GitHub user"
+            width="32"
+            height="32"
+            role="button"
+            tabindex="0"
+            aria-haspopup="true"
+            aria-expanded="false"
+          />
+          <ul class="user-menu-dropdown" id="user-menu-dropdown" role="menu" aria-label="Profile options">
+            <li role="none"><a href="#" id="menu-view-profile" role="menuitem">View GitHub Profile</a></li>
+            <li role="none"><a href="#" id="menu-copy-link" role="menuitem">Copy Profile Link</a></li>
+            <li role="none"><a href="#" id="menu-logout" role="menuitem">Logout</a></li>
           </ul>
         </div>
-        <button type="button" class="menu-toggle" id="menu-toggle">
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
           <span></span>
           <span></span>
           <span></span>
@@ -74,10 +85,13 @@
           class="search-input"
           placeholder="e.g. hiteshchoudhary"
         />
-        <button type="submit" class="btn btn-primary" id="search-button">Analyze Profile</button>
+        <button type="submit" class="btn btn-primary" id="search-button">
+          <span class="spinner" id="search-spinner" aria-hidden="true"></span>
+          <span id="search-button-label">Analyze Profile</span>
+        </button>
       </form>
 
-      <p class="search-status" id="search-status"></p>
+      <p class="search-status" id="search-status" role="alert"></p>
     </section>
 
     <!-- Dashboard Layout -->
@@ -121,7 +135,7 @@
           <li id="profile-blog"><a href="#">example.dev</a></li>
         </ul>
 
-        <button type="button" class="btn btn-secondary" id="profile-github-link">View on GitHub</button>
+        <button type="button" class="btn btn-secondary" id="profile-github-link" aria-label="Open this user's full GitHub profile">View on GitHub</button>
       </aside>
 
       <!-- Dashboard Content -->

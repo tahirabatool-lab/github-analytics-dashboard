@@ -5,6 +5,13 @@ var themeButton = document.getElementById("theme-toggle");
 
 themeButton.addEventListener("click", function () {
   document.body.classList.toggle("dark");
+
+  var isDark = document.body.classList.contains("dark");
+  themeButton.setAttribute("aria-pressed", String(isDark));
+  themeButton.setAttribute(
+    "aria-label",
+    isDark ? "Switch to light theme" : "Switch to dark theme"
+  );
 });
 
 // Mobile menu drawer: show/hide the nav links
@@ -12,7 +19,8 @@ var menuButton = document.getElementById("menu-toggle");
 var mainNav = document.getElementById("main-nav");
 
 menuButton.addEventListener("click", function () {
-  mainNav.classList.toggle("open");
+  var isOpen = mainNav.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", String(isOpen));
 });
 
 // Tab switching: clicking a nav link shows only the matching sections
@@ -40,5 +48,6 @@ navLinks.forEach(function (link) {
 
     // On mobile, close the dropdown after picking a tab
     mainNav.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
   });
 });

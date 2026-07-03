@@ -267,10 +267,43 @@ body.dark .search-subheading {
 }
 
 .search-status {
-  margin-top: 12px;
-  min-height: 20px;
-  color: #d64545;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  max-width: 460px;
+  margin: 14px auto 0;
+  padding: 10px 16px;
+  border-radius: 8px;
   font-size: 0.85rem;
+  text-align: left;
+}
+
+.search-status:not(:empty) {
+  display: flex;
+}
+
+.search-status.status-error {
+  background-color: #fdecec;
+  border: 1px solid #f3b7b7;
+  color: #b42323;
+}
+
+.search-status.status-success {
+  background-color: #e9f9ee;
+  border: 1px solid #a9e3bb;
+  color: #1f7a3d;
+}
+
+body.dark .search-status.status-error {
+  background-color: #3a1f1f;
+  border-color: #5c2b2b;
+  color: #f5a3a3;
+}
+
+body.dark .search-status.status-success {
+  background-color: #1c3324;
+  border-color: #2c5138;
+  color: #8fd6a6;
 }
 
 .search-input {
@@ -300,6 +333,30 @@ body.dark .search-input {
   border: 1px solid transparent;
   font-size: 0.9rem;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.spinner.is-active {
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .btn-primary {
@@ -695,6 +752,33 @@ body.dark .site-footer {
 }
 
 @media (max-width: 600px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  .card,
+  .stat-card,
+  .repo-card,
+  .profile-card {
+    padding: 16px;
+  }
+
+  .dashboard-layout {
+    gap: 16px;
+  }
+
+  .dashboard-content {
+    gap: 20px;
+  }
+
+  .repo-list {
+    gap: 12px;
+  }
+
+  .stats-grid {
+    gap: 10px;
+  }
+
   .search-form {
     flex-direction: column;
   }

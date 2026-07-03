@@ -17,6 +17,8 @@ import { formatNumber, formatDate, createErrorMessage, isEmpty } from "./utils.j
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("github-search");
 const searchButton = document.getElementById("search-button");
+const searchButtonLabel = document.getElementById("search-button-label");
+const searchSpinner = document.getElementById("search-spinner");
 const searchStatus = document.getElementById("search-status");
 
 const profileAvatar = document.getElementById("profile-avatar");
@@ -160,7 +162,7 @@ function renderRepos(user) {
         <div class="repo-card">
           <div class="repo-card-head">
             <h3 class="repo-name">${name}</h3>
-            <button type="button" class="btn btn-outline" onclick="window.open('${url}', '_blank')">
+            <button type="button" class="btn btn-outline" aria-label="View ${name} repository on GitHub" onclick="window.open('${url}', '_blank')">
               View Repository
             </button>
           </div>
@@ -206,18 +208,27 @@ function renderUser(user) {
    -------------------------------------------------------------------- */
 function setLoadingState(isLoading) {
   searchButton.disabled = isLoading;
-  searchButton.textContent = isLoading ? "Loading..." : "Analyze Profile";
+  searchButtonLabel.textContent = isLoading ? "Analyzing..." : "Analyze Profile";
+  searchSpinner.classList.toggle("is-active", isLoading);
   if (isLoading) {
-    searchStatus.textContent = "";
+    clearError();
   }
 }
 
 function showError(message) {
-  searchStatus.style.color = "#d64545";
+  searchStatus.classList.remove("status-success");
+  searchStatus.classList.add("status-error");
+  searchStatus.textContent = message;
+}
+
+function showSuccess(message) {
+  searchStatus.classList.remove("status-error");
+  searchStatus.classList.add("status-success");
   searchStatus.textContent = message;
 }
 
 function clearError() {
+  searchStatus.classList.remove("status-error", "status-success");
   searchStatus.textContent = "";
 }
 
@@ -232,7 +243,7 @@ async function handleSearch(event) {
   const username = searchInput.value.trim();
 
   if (isEmpty(username)) {
-    showError("Please enter a GitHub username first.");
+    showError("Please enter a GitHub username.");
     return;
   }
 
@@ -259,21 +270,35 @@ searchForm.addEventListener("submit", handleSearch);
    USER MENU DROPDOWN
    Click the avatar to open/close a small menu with profile actions.
    -------------------------------------------------------------------- */
+function closeUserMenu() {
+  userMenuDropdown.classList.remove("open");
+  headerAvatar.setAttribute("aria-expanded", "false");
+}
+
 headerAvatar.addEventListener("click", (event) => {
   event.stopPropagation(); // don't let this click immediately close itself below
-  userMenuDropdown.classList.toggle("open");
+  const isOpen = userMenuDropdown.classList.toggle("open");
+  headerAvatar.setAttribute("aria-expanded", String(isOpen));
+});
+
+// Keyboard support since the avatar is an <img> acting as a button
+headerAvatar.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    headerAvatar.click();
+  }
 });
 
 // Clicking anywhere outside the menu closes it
 document.addEventListener("click", (event) => {
   if (!userMenu.contains(event.target)) {
-    userMenuDropdown.classList.remove("open");
+    closeUserMenu();
   }
 });
 
 menuViewProfile.addEventListener("click", (event) => {
   event.preventDefault();
-  userMenuDropdown.classList.remove("open");
+  closeUserMenu();
 
   if (!currentProfileUrl) {
     showError("Search a GitHub username first.");
@@ -284,7 +309,7 @@ menuViewProfile.addEventListener("click", (event) => {
 
 menuCopyLink.addEventListener("click", async (event) => {
   event.preventDefault();
-  userMenuDropdown.classList.remove("open");
+  closeUserMenu();
 
   if (!currentProfileUrl) {
     showError("Search a GitHub username first.");
@@ -293,8 +318,7 @@ menuCopyLink.addEventListener("click", async (event) => {
 
   try {
     await navigator.clipboard.writeText(currentProfileUrl);
-    searchStatus.style.color = "#2f9e44";
-    searchStatus.textContent = "Profile link copied to clipboard.";
+    showSuccess("Profile link copied to clipboard.");
   } catch (error) {
     showError("Could not copy the link. Please copy it manually.");
   }
@@ -302,7 +326,7 @@ menuCopyLink.addEventListener("click", async (event) => {
 
 menuLogout.addEventListener("click", (event) => {
   event.preventDefault();
-  userMenuDropdown.classList.remove("open");
+  closeUserMenu();
   // No real authentication in this project — "logout" just resets
   // the dashboard back to its default, pre-search state.
   location.reload();
