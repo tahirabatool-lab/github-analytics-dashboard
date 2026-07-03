@@ -26,6 +26,7 @@ const profileBio = document.getElementById("profile-bio");
 const profileLocation = document.getElementById("profile-location");
 const profileBlog = document.getElementById("profile-blog");
 const profileGithubLink = document.getElementById("profile-github-link");
+const headerAvatar = document.getElementById("header-avatar");
 
 const followCountFollowers = document.getElementById("follow-count-followers");
 const followCountFollowing = document.getElementById("follow-count-following");
@@ -78,6 +79,8 @@ async function fetchGitHubUser(username) {
 function renderProfile(user) {
   profileAvatar.src = user.avatarUrl;
   profileAvatar.alt = `Portrait of ${user.name}`;
+  headerAvatar.src = user.avatarUrl;
+  headerAvatar.alt = `Portrait of ${user.name}`;
   profileName.textContent = user.name;
   profileUsername.textContent = `@${user.username}`;
   profileBio.textContent = user.bio;
