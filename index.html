@@ -24,10 +24,10 @@
 
       <nav class="main-nav" id="main-nav" aria-label="Primary navigation">
         <ul>
-          <li><a href="#" class="nav-link is-active">Overview</a></li>
-          <li><a href="#" class="nav-link">Repositories</a></li>
-          <li><a href="#" class="nav-link">Activity</a></li>
-          <li><a href="#" class="nav-link">Settings</a></li>
+          <li><a href="#" class="nav-link is-active" data-tab="overview">Overview</a></li>
+          <li><a href="#" class="nav-link" data-tab="repositories">Repositories</a></li>
+          <li><a href="#" class="nav-link" data-tab="activity">Activity</a></li>
+          <li><a href="#" class="nav-link" data-tab="settings">Settings</a></li>
         </ul>
       </nav>
 
@@ -58,7 +58,7 @@
       <h1 class="search-heading">Analyze any GitHub profile</h1>
       <p class="search-subheading">Enter a username to see repository, language, and activity info.</p>
 
-      <form class="search-form" onsubmit="return false;">
+      <form class="search-form" id="search-form">
         <label for="github-search" class="sr-only">GitHub username</label>
         <input
           type="text"
@@ -67,8 +67,10 @@
           class="search-input"
           placeholder="e.g. hiteshchoudhary"
         />
-        <button type="submit" class="btn btn-primary">Analyze Profile</button>
+        <button type="submit" class="btn btn-primary" id="search-button">Analyze Profile</button>
       </form>
+
+      <p class="search-status" id="search-status"></p>
     </section>
 
     <!-- Dashboard Layout -->
@@ -78,78 +80,78 @@
       <aside class="profile-card">
         <img
           class="profile-avatar"
+          id="profile-avatar"
           src="https://i.pravatar.cc/160?img=12"
           alt="Portrait of Hitesh Choudhary"
           width="96"
           height="96"
         />
 
-        <h2 class="profile-name">Hitesh Choudhary</h2>
-        <p class="profile-username">@hiteshchoudhary</p>
+        <h2 class="profile-name" id="profile-name">Hitesh Choudhary</h2>
+        <p class="profile-username" id="profile-username">@hiteshchoudhary</p>
 
-        <p class="profile-bio">
+        <p class="profile-bio" id="profile-bio">
           Building developer tools &amp; teaching code. Full-time on open source and education.
         </p>
 
         <ul class="profile-follow-stats">
           <li>
-            <span class="follow-count">32.5K</span>
+            <span class="follow-count" id="follow-count-followers">32.5K</span>
             <span class="follow-label">Followers</span>
           </li>
           <li>
-            <span class="follow-count">184</span>
+            <span class="follow-count" id="follow-count-following">184</span>
             <span class="follow-label">Following</span>
           </li>
           <li>
-            <span class="follow-count">154</span>
+            <span class="follow-count" id="follow-count-repos">154</span>
             <span class="follow-label">Repos</span>
           </li>
         </ul>
 
         <ul class="profile-meta">
-          <li>Dev Community</li>
-          <li>India</li>
-          <li><a href="#">example.dev</a></li>
+          <li id="profile-location">India</li>
+          <li id="profile-blog"><a href="#">example.dev</a></li>
         </ul>
 
-        <button type="button" class="btn btn-secondary">View on GitHub</button>
+        <button type="button" class="btn btn-secondary" id="profile-github-link">View on GitHub</button>
       </aside>
 
       <!-- Dashboard Content -->
       <div class="dashboard-content">
 
         <!-- Statistics -->
-        <section class="stats-section">
+        <section class="stats-section" data-section="overview">
           <h2 class="section-title">Statistics</h2>
 
           <div class="stats-grid">
             <div class="stat-card">
               <p class="stat-title">Public Repositories</p>
-              <p class="stat-number">154</p>
+              <p class="stat-number" id="stat-public-repos">154</p>
             </div>
 
             <div class="stat-card">
               <p class="stat-title">Followers</p>
-              <p class="stat-number">32.5K</p>
+              <p class="stat-number" id="stat-followers">32.5K</p>
             </div>
 
             <div class="stat-card">
               <p class="stat-title">Following</p>
-              <p class="stat-number">184</p>
+              <p class="stat-number" id="stat-following">184</p>
             </div>
 
             <div class="stat-card">
               <p class="stat-title">Total Stars</p>
-              <p class="stat-number">1.4K</p>
+              <p class="stat-number" id="stat-total-stars">1.4K</p>
             </div>
           </div>
         </section>
 
         <!-- Languages -->
-        <section class="languages-section">
+        <section class="languages-section" data-section="overview repositories">
           <div class="card">
             <h2 class="card-title">Top Languages</h2>
-            <ul class="badge-list">
+            <ul class="badge-list" id="badge-list">
               <li><span class="badge badge-js">JavaScript</span></li>
               <li><span class="badge badge-py">Python</span></li>
               <li><span class="badge badge-ts">TypeScript</span></li>
@@ -160,10 +162,10 @@
         </section>
 
         <!-- Repository List -->
-        <section class="repos-section">
+        <section class="repos-section" data-section="overview repositories">
           <h2 class="section-title">Top Repositories</h2>
 
-          <div class="repo-list">
+          <div class="repo-list" id="repo-list">
 
             <div class="repo-card">
               <div class="repo-card-head">
@@ -239,15 +241,23 @@
         </section>
 
         <!-- Recent Activity (simple text version, no heatmap) -->
-        <section class="activity-section">
+        <section class="activity-section" data-section="overview activity">
           <div class="card">
             <h2 class="card-title">Recent Activity</h2>
-            <ul class="activity-list">
+            <ul class="activity-list" id="activity-list">
               <li>Pushed 4 commits to <strong>chai-aur-code</strong> — 2 days ago</li>
               <li>Opened a pull request in <strong>react-hook-forms</strong> — 5 days ago</li>
               <li>Starred <strong>devstats-ui-kit</strong> — 1 week ago</li>
               <li>Created a new repository <strong>learn-html-css-fast</strong> — 3 weeks ago</li>
             </ul>
+          </div>
+        </section>
+
+        <!-- Settings (placeholder tab) -->
+        <section class="settings-section" data-section="settings">
+          <div class="card">
+            <h2 class="card-title">Settings</h2>
+            <p class="repo-description">Settings options are coming soon.</p>
           </div>
         </section>
 
@@ -264,5 +274,6 @@
   </footer>
 
   <script src="js/ui.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
